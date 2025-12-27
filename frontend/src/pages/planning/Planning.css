@@ -1,0 +1,119 @@
+.planning-container {
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
+.planning-header {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  border-bottom: 2px solid #06b6d4;
+  position: sticky;
+  top: 0;
+  background: linear-gradient(135deg, #ffffff 0%, #fef3c7 100%);
+  z-index: 10;
+}
+
+.planning-header::before {
+  content: '';
+  display: block;
+  width: 250px;
+  border-right: 2px solid #06b6d4;
+}
+
+.planning-day {
+  flex: 1;
+  min-width: 30px;
+  padding: 0.5rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-right: 1px solid #fde68a;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  color: #0891b2;
+}
+
+.planning-body {
+  min-height: 300px;
+}
+
+.planning-row {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  border-bottom: 1px solid #e9ecef;
+  min-height: 60px;
+}
+
+.planning-chantier-name {
+  padding: 1rem;
+  border-right: 2px solid #06b6d4;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #ffffff 0%, #fef3c7 100%);
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.planning-timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(31, 1fr);
+  background: repeating-linear-gradient(
+    90deg,
+    #fef3c7,
+    #fef3c7 calc(100% / 31 - 1px),
+    #fde68a calc(100% / 31 - 1px),
+    #fde68a calc(100% / 31)
+  );
+}
+
+.planning-bar {
+  position: absolute;
+  height: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+  box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
+}
+
+.planning-bar:hover {
+  opacity: 0.9;
+  transform: translateY(-50%) scale(1.05);
+  z-index: 5;
+  box-shadow: 0 4px 16px rgba(6, 182, 212, 0.5);
+}
+
+.planning-bar-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 768px) {
+  .planning-header,
+  .planning-row {
+    grid-template-columns: 200px 1fr;
+  }
+
+  .planning-header::before {
+    width: 200px;
+  }
+
+  .planning-chantier-name {
+    font-size: 0.85rem;
+  }
+
+  .planning-bar {
+    height: 35px;
+    font-size: 0.75rem;
+  }
+}
