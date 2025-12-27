@@ -3,31 +3,81 @@ const app = require('./src/app');
 const db = require('./src/models');
 
 const PORT = process.env.PORT || 5000;
+const NODE_ENV = process.env.NODE_ENV || 'development';
 
-// Synchronisation de la base de données et démarrage du serveur
-db.sequelize.authenticate()
-  .then(() => {
-    console.log('✅ Connecté à la base de données MySQL');
+console.log('🔧 Starting server...');
+console.log(`📊 Environment: ${NODE_ENV}`);
+console.log(`🔌 Port: ${PORT}`);
+
+// Database connection and server startup
+async function startServer() {
+  try {
+    // Test database connection
+    await db.sequelize.authenticate();
+    console.log('✅ Connected to MySQL database');
+    console.log(`📍 Database: ${process.env.DB_HOST || 'localhost'}:${process.env.DB_PORT || 3306}`);
     
-    // Synchroniser les modèles (créer les tables si elles n'existent pas)
-    return db.sequelize.sync({ alter: true });
-  })
-  .then(() => {
-    console.log('✅ Modèles synchronisés avec la base de données');
+    // Sync database models (use alter in production for safety)
+    if (NODE_ENV === 'production') {
+      console.log('🔄 Syncing database models (production mode)...');
+      await db.sequelize.sync({ alter: false });
+      console.log('✅ Database models synced');
+    } else {
+      console.log('🔄 Syncing database models (development mode)...');
+      await db.sequelize.sync({ alter: true });
+      console.log('✅ Database models synced');
+    }
     
-    // Démarrer le serveur
-    app.listen(PORT, () => {
-      console.log(`🚀 Serveur démarré sur le port ${PORT}`);
-      console.log(`🌐 Environnement: ${process.env.NODE_ENV || 'development'}`);
-      console.log(`📊 API disponible sur: http://localhost:${PORT}/api`);
+    // Start the server
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log('🚀 Server is running!');
+      console.log(`🌐 API available at: http://localhost:${PORT}/api`);
       console.log(`🔗 Health check: http://localhost:${PORT}/api/health`);
+      console.log(`📝 Logs enabled: ${NODE_ENV !== 'production'}`);
     });
-  })
-  .catch(err => {
-    console.error('❌ Erreur de connexion à la base de données:', err.message);
-    console.error('Vérifiez que:');
-    console.error('1. MySQL est démarré');
-    console.error('2. Les identifiants dans .env sont corrects');
-    console.error('3. La base de données existe');
+  } catch (error) {
+    console.error('❌ Failed to start server:', error.message);
+    console.error('\n🔍 Troubleshooting:');
+    console.error('1. Check if MySQL is running');
+    console.error('2. Verify database credentials in environment variables');
+    console.error('3. Ensure the database exists');
+    console.error('4. Check network connectivity to database');
+    console.error('\n📋 Environment variables needed:');
+    console.error('   - DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME');
+    
+    if (NODE_ENV === 'production') {
+      console.error('\n⚠️  In production, exiting...');
+      process.exit(1);
+    } else {
+      console.error('\n⚠️  In development mode, server will not start');
+    }
+  }
+}
+
+// Handle graceful shutdown
+process.on('SIGTERM', async () => {
+  console.log('🛑 SIGTERM signal received: closing HTTP server');
+  try {
+    await db.sequelize.close();
+    console.log('✅ Database connection closed');
+    process.exit(0);
+  } catch (error) {
+    console.error('❌ Error during shutdown:', error);
     process.exit(1);
-  });
+  }
+});
+
+process.on('SIGINT', async () => {
+  console.log('🛑 SIGINT signal received: closing HTTP server');
+  try {
+    await db.sequelize.close();
+    console.log('✅ Database connection closed');
+    process.exit(0);
+  } catch (error) {
+    console.error('❌ Error during shutdown:', error);
+    process.exit(1);
+  }
+});
+
+// Start the server
+startServer();

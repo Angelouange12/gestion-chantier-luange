@@ -1,8 +1,17 @@
 {
-  "providers": ["node"],
   "phases": {
+    "setup": {
+      "nixPkgs": ["nodejs_18"]
+    },
     "install": {
-      "cmds": ["npm install --production=false"]
+      "cmds": [
+        "npm ci --omit=dev"
+      ]
+    },
+    "build": {
+      "cmds": [
+        "npm run build"
+      ]
     }
   },
   "start": {

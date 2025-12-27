@@ -1,1 +1,1 @@
-web: cd Gestion-Chantier-Backend && npm run railway:deploy
+web: npm run railway:deploy

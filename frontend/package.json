@@ -24,9 +24,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview --host 0.0.0.0 --port ${PORT:-3000}",
-    "lint": "eslint src --ext js,jsx",
-    "railway:deploy": "npm run build && npm run preview"
+    "preview": "vite preview --host 0.0.0.0 --port $PORT",
+    "start": "vite preview --host 0.0.0.0 --port $PORT",
+    "lint": "eslint src --ext js,jsx"
   },
   "browserslist": {
     "production": [
