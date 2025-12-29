@@ -1,0 +1,13 @@
+# Configuration Railway pour Multi-Services
+
+[build]
+builder = "NIXPACKS"
+buildCommand = "echo 'Use service-specific build commands'"
+
+[deploy]
+startCommand = "echo 'Configure start command per service'"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+
+# Note: Vous devrez toujours configurer manuellement
+# le Root Directory dans le Railway Dashboard
