@@ -44,7 +44,10 @@ module.exports = (sequelize) => {
     }
   }, {
     tableName: 'affectations',
-    timestamps: true
+    timestamps: true,
+    underscored: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
   });
 
   Affectation.associate = (models) => {

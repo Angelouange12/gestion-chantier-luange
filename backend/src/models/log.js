@@ -46,7 +46,9 @@ module.exports = (sequelize) => {
   }, {
     tableName: 'logs',
     timestamps: true,
-    updatedAt: false
+    updatedAt: false,
+    underscored: true,
+    createdAt: 'created_at'
   });
 
   Log.associate = (models) => {

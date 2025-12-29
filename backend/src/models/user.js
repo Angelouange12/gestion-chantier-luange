@@ -57,6 +57,9 @@ module.exports = (sequelize) => {
   }, {
     tableName: 'users',
     timestamps: true,
+    underscored: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
     // ⚠️ ENLEVER les hooks de hashage automatique
     // hooks: {
     //   beforeCreate: async (user) => {
