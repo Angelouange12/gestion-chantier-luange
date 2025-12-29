@@ -15,7 +15,7 @@
     "test": "jest --coverage --detectOpenHandles",
     "test:watch": "jest --watch",
     "build": "echo 'Backend build complete'",
-    "railway:deploy": "npm run db:migrate && npm start"
+    "railway:deploy": "npm start"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
