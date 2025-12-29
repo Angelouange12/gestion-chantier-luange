@@ -3,7 +3,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const logger = require('./middlewares/logger');
-const routes = require('./routes');
+const routes = require('../routes');
 
 const app = express();
 
