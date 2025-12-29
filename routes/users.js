@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const UserController = require('../controllers/userController');
-const { auth, authorize } = require('../middlewares/auth');
-const { validateCreateUser } = require('../middlewares/validation');
+const UserController = require('../src/controllers/userController');
+const { auth, authorize } = require('../src/middlewares/auth');
+const { validateCreateUser } = require('../src/middlewares/validation');
 
 // Toutes les routes nécessitent une authentification
 router.use(auth);

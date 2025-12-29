@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const ChantierController = require('../controllers/chantierController');
-const { auth, authorize } = require('../middlewares/auth');
-const { validateCreateChantier } = require('../middlewares/validation');
+const ChantierController = require('../src/controllers/chantierController');
+const { auth, authorize } = require('../src/middlewares/auth');
+const { validateCreateChantier } = require('../src/middlewares/validation');
 
 // Toutes les routes nécessitent une authentification
 router.use(auth);
