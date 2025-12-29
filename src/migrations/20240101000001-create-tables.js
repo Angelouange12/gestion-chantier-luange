@@ -148,7 +148,7 @@ module.exports = {
       date_debut: {
         type: Sequelize.DATEONLY,
         allowNull: false,
-        defaultValue: Sequelize.literal('CURRENT_DATE')
+        defaultValue: Sequelize.literal('CURDATE()')
       },
       date_fin: {
         type: Sequelize.DATEONLY,
