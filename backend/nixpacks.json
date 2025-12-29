@@ -5,16 +5,16 @@
     },
     "install": {
       "cmds": [
-        "if [ -f package-lock.json ]; then npm ci; else npm install; fi"
+        "if [ -f package-lock.json ]; then npm ci --omit=dev; else npm install --omit=dev; fi"
       ]
     },
     "build": {
       "cmds": [
-        "npm run build"
+        "echo 'Backend build complete'"
       ]
     }
   },
   "start": {
-    "cmd": "npm run start"
+    "cmd": "npm run railway:deploy"
   }
 }
